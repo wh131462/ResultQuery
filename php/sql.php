@@ -1,7 +1,7 @@
 <?php
 $host="localhost";
 $sql_username="root";
-$sql_password="Qq542624047";
+$sql_password="*****";
 $sql_database="Result";//数据库 包含两个表 User 和 CJ19202 CJ20211 记住成绩表格严格按照此格式来建立 否则会影响应用的实现
 // CREATE TABLE User(id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,XH VARCHAR(24) not null,XM text not null,NJ VARCHAR(10) not null,XYMC text not null,BJ text not null,ZYMC text not null,password VARCHAR(16) not null);
 	// CREATE TABLE CJ19202(id INT(12) UNSIGNED AUTO_INCREMENT PRIMARY KEY,xh VARCHAR(24) not null,bj text,xm text,kcmc text,xz text,xs VARCHAR(10),xf VARCHAR(10),kscj VARCHAR(10),qzcj VARCHAR(10),qmcj VARCHAR(10),pscj VARCHAR(10));
