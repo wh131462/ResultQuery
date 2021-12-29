@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=yes" />
+		<title>广西科技大学期末成绩查询</title>
+		<link rel="shortcut icon" href="img/logo.ico">
+		<link rel="stylesheet" type="text/css" href="css/main.css" />
+		<script src="js/vue.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="vue">
+			<!-- 消息提醒 -->
+			<div v-if="isDia" id="dialog">
+				<div class="bg">
+					<h1>{{diaTitle}}</h1>
+					<p v-html="diaContent"></p>
+					<button type="button" @click="isDia=!isDia">确认</button>
+				</div>
+			</div>
+			<!-- 头部提醒 -->
+			<div id="tips">
+				<p>1.密码默认为身份证号后八位.<a href="javascript:void(0);"
+						style="text-decoration: none;color: #FF0000;float: right;margin-right: 10px;"
+						onclick="{document.getElementById('tips').style.display='none';console.log('dis');}">×</a></p>
+			</div>
+			<!-- 加载动画 -->
+			<div id="loadingBG" v-if="isloading">
+				<div id="loading"><img src="img/loading.png">
+				</div>
+			</div>
+			<!-- 登录部分 -->
+			<div id="login" :hidden="lghidden">
+				<span>&nbsp;</span>
+				<div id="login_detail">
+					<p id="login_title">广科大成绩查询</p>
+					<input placeholder="Student ID" type="number" name="username" id="username" v-model="username" />
+					<input type="password" placeholder="Password" name="password" id="password" v-model="password" />
+					<button type="button" @click="login()">开始查询</button>
+				</div>
+				<div class="foot">
+					<small>
+						<p>Copyright &copy; 广西科技大学易班发展中心|All Rights Reserved</p>
+					</small>
+				</div>
+			</div>
+			<!-- 成绩数据渲染部分 -->
+			<div id="cj" :hidden="!lghidden">
+				<div id="top">
+					<p v-if="json[0]">欢迎你:{{json[0].xm}}</p>
+					<div class="select">
+						<label for="xq">选择学期</label>
+						<select name="xq" v-model="xq">
+							<option value="CJ19202">19-20-2</option>
+							<option value="CJ20211">20-21-1</option>
+							<option value="CJ20212">20-21-2</option>
+						</select>
+						<button type="button" @click="query()">确认切换</button>
+					</div>
+
+				</div>
+				<p id="person" v-if="json[0]">{{json[0].bj+json[0].xm+json[0].xh}} 当前为{{xqShow}}学期的成绩</p>
+				<table>
+					<tr>
+						<th>课程名称</th>
+						<th>课程性质</th>
+						<th>学时</th>
+						<th>学分</th>
+						<th>期中成绩</th>
+						<th>平时成绩</th>
+						<th>期末成绩</th>
+						<th>最终成绩</th>
+					</tr>
+					<tr v-for="(item,index) in json" :key="index">
+						<td>{{item.kcmc}}</td>
+						<td>{{item.xz}}</td>
+						<td>{{item.xs}}</td>
+						<td>{{item.xf}}</td>
+						<td>{{item.qzcj}}</td>
+						<td>{{item.pscj}}</td>
+						<td>{{item.qmcj}}</td>
+						<td :class="[failedList.includes(item.kscj)||parseFloat(item.kscj)<60?[failedClass]:[]]">
+							{{item.kscj}}</td>
+					</tr>
+				</table>
+				<p id="tip">
+					提示:1、期末成绩卷面分数大于等于40分，小于60分的学生有补考资格，小于40分的无补考资格。<br>2、根据学籍管理规定“实践环节考核不设补考，不合格课程应当重新选学，课程类型为“S”类的表示实践环节课程。
+				</p>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var vue = new Vue({
+				el: "#vue",
+				data: {
+					isDia: true,
+					diaTitle: "消息提示",
+					diaContent: "20-21-2学期的成绩已经上传完毕，同学们可以查询本学期的成绩了，另说明一点:专升本联合培养的班级成绩由于对方学校交成绩非常晚，就不放到成绩查询中了，这部分学生成绩，学生可连接学校的VPN登录教务系统查询<a href=\"http://www.gxust.edu.cn/wlzx/info/1092/1331.htm\">点击此处进行查看VPN连接教程</a>",
+					username: "",
+					password: "",
+					lghidden: false,
+					isloading: false,
+					json: [],
+					xq: "CJ20212", //原生数据 目前已存储CJ19202 CJ20211 CJ20212
+					xqShow: "", //渲染数据
+					failedList: ["缺考", "作弊", "无资格", "零分卷", "不及格", "不合格", "缓考", "休学"],
+					failedClass: "NoneOfPeopleCanHelp"
+					// data结束
+				},
+				methods: {
+					login: function() {
+						// 本函数用于登录 并返回json
+						var _this = this;
+						var username = _this.username;
+						var password = _this.password;
+						// loading
+						_this.isloading = true;
+						if (username.length <= 8) {
+							_this.ShowMes("请输入正确的学号，例如201809501001。");
+							_this.password = "";
+							_this.username = "";
+							// loading
+							_this.isloading = false;
+						} else if (password == "") {
+							_this.ShowMes("请输入密码,密码默认为身份证号后八位。");
+							// loading
+							_this.isloading = false;
+
+						} else {
+							// 验证登录
+							var form = new FormData();
+							form.append("case", "login");
+							form.append("username", _this.username);
+							form.append("password", _this.password);
+							fetch('php/query.php', {
+									method: 'post',
+									body: form
+								})
+								.then(function(response) {
+									return response.json();
+								})
+								.then(function(res) {
+									if (res["code"] == 1) {
+										//验证成功
+										_this.query();
+									} else {
+										_this.ShowMes("密码验证错误，一般密码为身份证号后八位，尾号为X请输入大写。");
+										_this.password = "";
+										_this.isloading = false;
+									}
+
+								})
+								.catch(function(err) {
+									console.log(err);
+									_this.ShowMes("啊哦~遇到了未预计的错误，请检查网络或者稍后再试！");
+									_this.isloading = false;
+								});
+						}
+					},
+					query() {
+						var _this = this;
+						var form = new FormData();
+						form.append("case", "query");
+						form.append("username", _this.username);
+						form.append("xq", _this.xq);
+						fetch('php/query.php', {
+								method: 'post',
+								body: form
+							})
+							.then(function(response) {
+								return response.json();
+							})
+							.then(function(res) {
+								if (res.code == 0||res.data.length==0) {
+									//查询失败
+									_this.ShowMes("不好意思，系统当前并未查询到您在"+(_this.xq.substring(2, 4) + "-" + _this.xq.substring(4, 6) + "-" + _this.xq.substring(6, 8))+"学期的成绩！");
+									_this.isloading = false;
+								} else if(res.data.length!=0){
+									//成绩数组
+									_this.json = res.data;
+									//获取学期数
+									var xq = res.xq;
+									_this.xq = xq;
+									_this.xqShow = xq.substring(2, 4) + "-" + xq.substring(4, 6) + "-" + xq.substring(6, 8);
+									// 修改文档页面标题
+									document.title = "成绩查询详情-" + _this.json[0]["xm"];
+									document.getElementById('tips').style.display = 'none';
+									_this.lghidden = true;
+									_this.isloading = false;
+									// 展示成绩
+									console.log("get json success");
+								}
+							})
+							.catch(function(err) {
+								console.log(err);
+								_this.ShowMes("啊哦~遇到了未预计的错误，请检查网络或者稍后再试！");
+								_this.isloading = false;
+							});
+
+					},
+					ShowMes(mes){
+						var _this=this;
+						//显示提示内容
+						_this.diaContent=mes;
+						_this.isDia=true;
+					}
+					
+					// method结束
+				}
+			});
+		</script>
+	</body>
+</html>

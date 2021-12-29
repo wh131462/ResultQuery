@@ -1,0 +1,543 @@
+/* 登录界面样式 */
+body{
+	margin: 0;
+	padding: 0;
+	/* overflow设置为hidden就无法上下滑动了 因为下面的内容也属于超出部分 隐藏了 */
+	overflow:auto;
+	background:linear-gradient(90deg,#00ACC1 0%,#00BCD4 100%);/*#0097A7;*/
+}
+#dialog .bg{
+	/* 水平垂直居中 */
+	width: 80%;
+	min-height: 220px;
+	top: 50%;
+	left: 50%;
+	margin-top: -110px;
+	margin-left: -40%;
+	padding: 0;
+	position: fixed;
+	/* 边框和背景 */
+	background-color: #FFFFFF;
+	border-radius: 10px;
+	z-index:3;
+}
+#dialog{
+	width: 100%;
+	min-height: 1080px;
+	background-color: rgba(0,0,0,0.7);
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+#dialog h1{
+	width: 90%;
+	height: 30px;
+	margin:10px auto; 
+	font-size: 1.5rem;
+	font-weight: 100;
+	text-align: center;
+	color: #03A9F4;
+}
+#dialog p{
+	width: 90%;
+	height: 170px;
+	margin: 0 auto;
+	padding:10px; 
+	text-indent: 2em;
+	font-size: 1.1rem;
+	font-weight: 100;
+	color: #4929FF;
+}
+#dialog button{
+	display: block;
+	width: 95%;
+	height: 30px;
+	margin: 5px auto;
+	padding: 0;
+	border: none;
+	border-radius: 10px;
+	box-shadow: #000000 0px 0px 1px;
+	outline: none;
+	background-color: #EEEEEE;
+	color: #0000ff;
+}
+
+#tips p{
+	margin:0.1rem 1%;
+	padding:0.2rem 0;
+	width: 98%;
+	text-align: center;
+	font-size: 0.8rem;
+	color: rgb(58, 83, 155);
+	background: rgb(255, 249, 222);
+	position: absolute;
+	animation:pop .5s 200ms linear;
+}
+@keyframes pop{
+	0%{transform: scale(0);}
+	50%{transform: scale(0.5);}
+	100{transform: scale(1);}
+}
+#top{
+	display: flex;
+	flex-direction: row;
+	justify-content: baseline;
+	height: 30px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	line-height: 30px;
+}
+#top p{
+	margin: 0;
+	padding: 0 10px;
+	color: #FFFFFF;
+}
+.select{
+	margin: 0;
+	padding: 0 10px;
+	position: absolute;
+	right: 0;
+}
+.select label{
+	position:relative;
+	color: #FFF;
+}
+.select select{
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	
+}
+.select button{
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	font-size: 0.8rem;
+	color: #ff0004;
+	background-color: #FFFFFF;
+}
+.select button:active{
+	border: none;
+	outline: none;
+	border-radius: 5px;
+	font-size: 0.8rem;
+	color: #ff0004;
+	background-color: #DDD;
+}
+#person{
+	margin: 10px 5px;
+	padding:10px 0;
+	text-align: center;
+	color:#2c82c4;
+	border: rgba(255,255,255,0.5) solid 1px;
+	background:rgba(255,255,255,0.5);
+}
+#tip{
+	text-align: center;
+	color: #ffffff;
+	font-size: 0.9rem;
+	padding: 10px;
+}
+/* 电脑 */
+@media screen and (min-width:769px) {
+	#login{
+		width: 100%;
+	}
+	#login_detail{
+		width: 60%;
+		/* margin-left:-40%; */
+		border:#000  solid 0px;
+		border-radius: 20px;
+		background:rgba(255,255,255,0.3);/*#26C6DA; */
+		margin-left: -30%;
+		/* margin-top: -50%; */
+		top: 20%;
+		left: 50%;
+		font-size: 1.875rem;
+		text-align: center;
+		z-index: -1;
+		position:fixed;
+	}
+	#login_detail input{
+		margin: .6rem 0;
+		height: 40px;
+		width:80%;
+		border: #FFF solid 1px;
+		border-radius: 5px;
+		font-size: 1.2rem;
+		color: #BDBDBD;
+	}
+	
+	#login_detail input:focus{
+		box-shadow: #B3E5FC 2px 1px;
+		 color: #757575;
+	}
+	#login_detail button{
+		width: 80%;
+		height: 40px;
+		font-size: 1.2rem;
+		margin: 0 auto;
+		margin-top: 10px;
+		margin-bottom: 80px;
+		background: #FFF;
+		color: #757575;
+		border: #FFF solid 1px;
+		border-radius: 5px;
+	}
+	#login_detail button:hover{
+		background: rgba(255,255,255,0.8);
+		color: #03A9F4;
+	}
+	#login_title{
+		margin:20 0;
+		font-size: 1.9rem;
+		color:#EEE;
+		text-shadow: #FFF 1px 1px;
+	}
+	/* 底部信息 */
+	.foot{
+		position:fixed;
+		bottom: 0;
+		text-align: center;
+		width: 100%;
+		color: #EEE;
+	}
+	.foot a,{
+		text-decoration: none;
+		color: #EEE;
+	}
+
+	#cj table{
+		width: 100%;
+		background: rgba(255,255,255,0.4);
+		word-break: break-word;
+		padding: 0.225rem;
+		border:rgba(255,255,255,0.4) solid 1px ;
+		border-radius: 5px;
+		text-align: center;
+		font-size: 0.675rem !important;
+	}
+	#cj table th{
+		height: 30px;
+		color:#4929ff;
+		border: rgba(255,255,255,0.4) solid 1px;
+		background:rgba(255,255,255,0.5);
+	}
+	
+	#cj table td{
+		height: 30px;
+		color:#2c82c4;
+		border: rgba(255,255,255,0.5) solid 1px;
+		background:rgba(255,255,255,0.5);
+	}
+	
+
+	/* 不及格成绩标红 */
+	.NoneOfPeopleCanHelp{
+		color: red !important;
+	}
+
+	/* 加载动画 */
+	#loadingBG{
+		display: block;
+		position: fixed;
+		margin: 0 auto;
+		width: 100%;
+		height: 100%;
+		z-index: 9;
+		background:rgba(255,255,255,0.5);
+	}
+	 #loading{
+	        display: block;
+			top: 50%;
+			left: 50%;
+			margin-top: -40px;
+			margin-left: -40px;
+			text-align: center;
+			position:fixed;
+			z-index: 9;
+			width:80px;
+			height: 80px;
+	        /*animation (动画) :绑定选择器, 4s完成动画 linear(匀速) infinite(循环) */
+	        animation: loading 4s linear infinite;
+	    }
+		#loading img{
+			width: 100%;
+		}
+	@keyframes loading {
+	    0% {
+	        transform: rotate(0deg);
+	    }
+	    100% {
+	        transform: rotate(360deg);
+	    }
+	}
+}
+/* 中间端 */
+@media screen and (min-width:376px) and (max-width:769px){
+	#login{
+		width: 100%;
+	}
+	#login_detail{
+		width: 60%;
+		/* margin-left:-40%; */
+		border:#000  solid 0px;
+		border-radius: 20px;
+		background:rgba(255,255,255,0.3);/*#26C6DA; */
+		margin-left: -30%;
+		/* margin-top: 50%; */
+		top: 30%;
+		left: 50%;
+		font-size: 1.875rem;
+		text-align: center;
+		z-index: -1;
+		position:fixed;
+	}
+	#login_detail input{
+		margin: .6rem 0;
+		height: 30px;
+		width:80%;
+		border: #FFF solid 1px;
+		border-radius: 5px;
+		font-size: 0.95rem;
+		color: #BDBDBD;
+	}
+	
+	#login_detail input:focus{
+		box-shadow: #B3E5FC 2px 1px;
+		 color: #757575;
+	}
+	#login_detail button{
+		width: 80%;
+		height: 30px;
+		margin: 0 auto;
+		margin-bottom: 30px;
+		background: #FFF;
+		color: #757575;
+		border: #FFF solid 1px;
+		border-radius: 5px;
+	}
+	#login_detail button:hover{
+		background: rgba(255,255,255,0.8);
+		color: #03A9F4;
+	}
+	#login_title{
+		margin:20 0;
+		font-size: 1.1rem;
+		color:#DDD;
+		text-shadow: #FFF 1px 1px;
+	}
+	/* 底部信息 */
+	.foot{
+		position:fixed;
+		bottom: 0;
+		text-align: center;
+		width: 100%;
+		color: #EEE;
+	}
+
+	.foot a{
+		text-decoration: none;
+		color: #EEE;
+	}
+
+	#cj table{
+		width: 100%;
+		background: rgba(255,255,255,0.6);
+		word-break: break-word;
+		padding: 0.225rem;
+		border:rgba(255,255,255,0.6) solid 1px ;
+		border-radius: 5px;
+		text-align: center;
+		font-size: 0.675rem !important;
+	}
+	#cj table th{
+		height: 30px;
+		color:#4929ff;
+		border: rgba(255,255,255,0.6) solid 1px;
+		background:rgba(255,255,255,0.6);
+	}
+	
+	#cj table td{
+		height: 30px;
+		color:#2c82c4;
+		border: rgba(255,255,255,0.6) solid 1px;
+		background:rgba(255,255,255,0.6);
+	}
+	
+	
+	/* 不及格成绩标红 */
+	.NoneOfPeopleCanHelp{
+		color: red !important;
+	}
+
+	/* 加载动画 */
+	#loadingBG{
+		display: block;
+		position: fixed;
+		margin: 0 auto;
+		width: 100%;
+		height: 100%;
+		z-index: 9;
+		background:rgba(255,255,255,0.5);
+	}
+	 #loading{
+			display: block;
+			top: 50%;
+			left: 50%;
+			margin-top: -40px;
+			margin-left: -40px;
+			text-align: center;
+			position:fixed;
+			z-index: 9;
+			width:80px;
+			height: 80px;
+			/*animation (动画) :绑定选择器, 4s完成动画 linear(匀速) infinite(循环) */
+			animation: loading 4s linear infinite;
+		}
+		#loading img{
+			width: 100%;
+		}
+	@keyframes loading {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+}
+@media screen and (max-width:376px) {
+	#login{
+		width: 100%;
+	}
+	#login_detail{
+		width: 80%;
+		/* margin-left:-40%; */
+		border:#000  solid 0px;
+		border-radius: 20px;
+		background:rgba(255,255,255,0.3);/*#26C6DA; */
+		margin-left: -40%;
+		margin-top: -50%;
+		top: 50%;
+		left: 50%;
+		font-size: 1.875rem;
+		text-align: center;
+		z-index: -1;
+		position:fixed;
+	}
+	#login_detail input{
+		margin: .6rem 0;
+		height: 30px;
+		width:80%;
+		border: #FFF solid 1px;
+		border-radius: 5px;
+		font-size: 0.95rem;
+		color: #BDBDBD;
+	}
+
+	#login_detail input:focus{
+		box-shadow: #B3E5FC 2px 1px;
+		 color: #757575;
+	}
+	#login_detail button{
+		width: 80%;
+		height: 30px;
+		margin: 0 auto;
+		margin-bottom: 30px;
+		background: #FFF;
+		color: #757575;
+		border: #FFF solid 1px;
+		border-radius: 5px;
+	}
+	#login_detail button:hover{
+		background: rgba(255,255,255,0.8);
+		color: #03A9F4;
+	}
+	#login_title{
+		margin:20 0;
+		font-size: 1.1rem;
+		color:#DDD;
+		text-shadow: #FFF 1px 1px;
+	}
+	/* 底部信息 */
+	.foot{
+		position:fixed;
+		bottom: 0;
+		text-align: center;
+		width: 100%;
+		color: #EEE;
+	}
+
+	.foot a{
+		text-decoration: none;
+		color: #EEE;
+	}
+
+	#cj table{
+		width: 100%;
+		background: rgba(255,255,255,0.6);
+		word-break: break-word;
+		padding: 0.225rem;
+		border:rgba(255,255,255,0.6) solid 1px ;
+		border-radius: 5px;
+		text-align: center;
+		font-size: 0.675rem !important;
+	}
+
+	#cj table th{
+		height: 30px;
+		color:#4929ff;
+		border: rgba(255,255,255,0.6) solid 1px;
+		background:rgba(255,255,255,0.6);
+	}
+
+	#cj table td{
+		height: 30px;
+		color:#2c82c4;
+		border: rgba(255,255,255,0.6) solid 1px;
+		background:rgba(255,255,255,0.6);
+	}
+
+	.NoneOfPeopleCanHelp{
+		color: red !important;
+	}
+
+	/* 加载动画 */
+	#loadingBG{
+		display: block;
+		position: fixed;
+		margin: 0 auto;
+		width: 100%;
+		height: 100%;
+		z-index: 9;
+		background:rgba(255,255,255,0.5);
+	}
+	 #loading{
+			display: block;
+			top: 50%;
+			left: 50%;
+			margin-top: -40px;
+			margin-left: -40px;
+			text-align: center;
+			position:fixed;
+			z-index: 9;
+			width:80px;
+			height: 80px;
+			/*animation (动画) :绑定选择器, 4s完成动画 linear(匀速) infinite(循环) */
+			animation: loading 4s linear infinite;
+		}
+		#loading img{
+			width: 100%;
+		}
+	@keyframes loading {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+}
